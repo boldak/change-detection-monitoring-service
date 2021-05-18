@@ -1,0 +1,31 @@
+
+[
+	{
+		"id": 1,
+		"type":"water monitoring",
+		"script":"./src/python/crimea_water_monitor.py",
+		"updatedAt":"2021-05-03",
+		"objectId":"1",
+		"log":[
+		]
+	},
+	{
+		"id": 2,
+		"type":"water monitoring",
+		"script":"./src/python/crimea_water_monitor.py",
+		"updatedAt":"2021-05-03",
+		"objectId":"2",
+		"log":[
+		]
+	},
+	{
+		"id": 3,
+		"type":"water monitoring",
+		"script":"./src/python/crimea_water_monitor.py",
+		"updatedAt":"2021-05-03",
+		"objectId":"3",
+		"log":[
+		]
+	}
+
+]

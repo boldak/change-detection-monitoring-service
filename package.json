@@ -1,5 +1,5 @@
 {
-  "name": "Change Detection Monitoring Service",
+  "name": "cdm-service",
   "version": "1.0.0",
   "description": "",
   "main": "server.js",

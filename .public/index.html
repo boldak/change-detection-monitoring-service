@@ -1,0 +1,122 @@
+<html><head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+   <link rel="stylesheet" href="./vuetify.min.css">
+  
+</head>
+
+	<body>
+
+		<div class="app">
+			<div class="v-application v-application--is-ltr theme--light">
+				<div class="v-application--wrap">
+					<div class="d-flex align-center" style="
+    background: #1a237e;
+    color: white;
+">
+						<div class="headline ma-2">Change Detection Monitoring Service</div>
+						<div class="spacer"></div>
+						<div class="ma-2 text-right">
+							<a href="http://wdc.org.ua/" target="_blank" style="font-size: xx-small;color: white;text-decoration: none;">WORLD DATA CENTER FOR GEOINFORMATICS AND SUSTAINABLE DEVELOPMENT</a>
+						</div>	
+					</div>
+
+					<div class="title ma-2"> Entry points</div>
+
+					<div class="ma-5">
+						Fetch data as geojson
+						<ul class="caption">
+							<li>
+								Fetch all monitoring data: <br/>
+								<a href="https://wdc-cdms.herokuapp.com/api/json" target="_blank">https://wdc-cdms.herokuapp.com/api/json</a>
+							</li>
+							<li>
+								Fetch filtered monitoring data by measurement date: <br/>
+								<a href="https://wdc-cdms.herokuapp.com/api/json?measurement_date=%222021.01.06%22" target="_blank">https://wdc-cdms.herokuapp.com/api/json?measurement_date="2021.01.06"</a>
+							</li>
+							<li>
+								Fetch filtered monitoring data by measurement date range: <br/>
+								<a href="https://wdc-cdms.herokuapp.com/api/json?measurement_date=[%222021.01.06%22,%222021.05.19%22]" target="_blank">https://wdc-cdms.herokuapp.com/api/json?measurement_date=["2021.01.06","2021.05.19"]</a>
+							</li>
+							<li>
+								Fetch filtered monitoring data by measurement type: <br/>
+								<a href="https://wdc-cdms.herokuapp.com/api/json?measurement_type=%22nominal%22" target="_blank">https://wdc-cdms.herokuapp.com/api/json?measurement_type="nominal"</a>
+							</li>
+							<li>
+								Fetch filtered monitoring data by object name: <br/>
+								<a href="https://wdc-cdms.herokuapp.com/api/json?Name=%22Симферопільське%22" target="_blank">https://wdc-cdms.herokuapp.com/api/json?Name="Симферопільське"</a>
+							</li>
+							<li>
+								Fetch monitoring data without geometry: <br/>
+								<a href="https://wdc-cdms.herokuapp.com/api/json?measurement_type=%22nominal%22&Name=%22Симферопільське%22&excludeGeometry=1" target="_blank">https://wdc-cdms.herokuapp.com/api/json?measurement_type="nominal"&Name="Симферопільське"&excludeGeometry=1</a>
+							</li>
+							<li>
+								Fetch selected properties: <br/>
+								<a href="https://wdc-cdms.herokuapp.com/api/json?measurement_type=%22nominal%22&Name=%22Симферопільське%22&excludeGeometry=1&properties=[%22OBJECTID%22, %22Name%22, %22Size%22]" target="_blank">https://wdc-cdms.herokuapp.com/api/json?measurement_type="nominal"&Name="Симферопільське"&excludeGeometry=1&properties=["OBJECTID", "Name", "Size"]</a>
+							</li>
+							
+						</ul>
+					</div>	
+
+					<div class="ma-5">
+						Fetch data as csv
+						<ul class="caption">
+							<li>
+								Fetch all monitoring data: <br/>
+								<a href="https://wdc-cdms.herokuapp.com/api/csv" target="_blank">https://wdc-cdms.herokuapp.com/api/csv</a>
+							</li>
+							<li>
+								Fetch filtered monitoring data by measurement date: <br/>
+								<a href="https://wdc-cdms.herokuapp.com/api/csv?measurement_date=%222021.01.06%22" target="_blank">https://wdc-cdms.herokuapp.com/api/csv?measurement_date="2021.01.06"</a>
+							</li>
+							<li>
+								Fetch filtered monitoring data by measurement date range: <br/>
+								<a href="https://wdc-cdms.herokuapp.com/api/csv?measurement_date=[%222021.01.06%22,%222021.05.19%22]" target="_blank">https://wdc-cdms.herokuapp.com/api/csv?measurement_date=["2021.01.06","2021.05.19"]</a>
+							</li>
+							<li>
+								Fetch filtered monitoring data by measurement type: <br/>
+								<a href="https://wdc-cdms.herokuapp.com/api/csv?measurement_type=%22nominal%22" target="_blank">https://wdc-cdms.herokuapp.com/api/csv?measurement_type="nominal"</a>
+							</li>
+							<li>
+								Fetch filtered monitoring data by object name: <br/>
+								<a href="https://wdc-cdms.herokuapp.com/api/csv?Name=%22Симферопільське%22" target="_blank">https://wdc-cdms.herokuapp.com/api/csv?Name="Симферопільське"</a>
+							</li>
+							<li>
+								Fetch monitoring data without geometry: <br/>
+								<a href="https://wdc-cdms.herokuapp.com/api/json?measurement_type=%22nominal%22&Name=%22Симферопільське%22&excludeGeometry=1" target="_blank">https://wdc-cdms.herokuapp.com/api/json?measurement_type="nominal"&Name="Симферопільське"&excludeGeometry=1</a>
+							</li>
+							<li>
+								Fetch selected properties: <br/>
+								<a href="https://wdc-cdms.herokuapp.com/api/csv?measurement_type=%22nominal%22&Name=%22Симферопільське%22&excludeGeometry=1&properties=[%22OBJECTID%22, %22Name%22, %22Size%22]" target="_blank">https://wdc-cdms.herokuapp.com/api/csv?measurement_type="nominal"&Name="Симферопільське"&excludeGeometry=1&properties=["OBJECTID", "Name", "Size"]</a>
+							</li>
+							
+						</ul>
+					</div>	
+					
+
+					<div class="ma-5">
+						Show logs
+						<ul class="caption">
+							<li>
+								Show log for updates: <br/>
+								<a href="https://wdc-cdms.herokuapp.com/api/log" target="_blank">https://wdc-cdms.herokuapp.com/api/log</a>
+							</li>
+						</ul>
+					</div>	
+
+
+					
+				</div>	<!-- application wrapper-->
+			</div>	
+		</div>	
+		
+	
+
+
+
+
+
+
+</body></html>

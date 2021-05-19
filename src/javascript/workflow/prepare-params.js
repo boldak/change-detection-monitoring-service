@@ -6,7 +6,7 @@ const mongo = require('mongodb').MongoClient
 
 let logger = require("../logger")
 
-const START_DATE = "2021.01.01"
+const START_DATE = config.task[config.DEFAULT_TASK].data.startsAt
 
 let client
 
@@ -24,7 +24,7 @@ module.exports =  taskList  => new Promise( (resolve, reject) => {
                                 {
                                     '$match': {
                                       'properties.Id': task.properties.Id, 
-                                      'properties.measurement_type': 'observed'
+                                      'properties.measurement_type': config.task[config.DEFAULT_TASK].data.measurement_type
                                     }
                                   }, {
                                     $sort:{
@@ -49,7 +49,7 @@ module.exports =  taskList  => new Promise( (resolve, reject) => {
                                             minDate.format("YYYY.MM.DD"),
                                             maxDate.format("YYYY.MM.DD")
                                         ]
-                                        logger.print(`Time range is ${JSON.stringify(dateRange)}`)
+                                        logger.print(`Task "${config.DEFAULT_TASK} for ${task.properties.Name}" time range ${JSON.stringify(dateRange)}`)
                                         return _.extend( task, {
                                             params: {
                                                 Id:task.properties.Id,

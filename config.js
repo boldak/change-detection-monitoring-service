@@ -6,7 +6,8 @@ module.exports = {
 		lang: process.env.NER_LANG || "en",
 		mode: process.env.NODE_ENV || "development",
 		port: process.env.PORT || 3001,
-		host: process.env.HOST || "localhost"
+		host: process.env.HOST || "localhost",
+		public:"./.public"
 	},
 
 	storage:{
@@ -15,6 +16,25 @@ module.exports = {
 		"database": process.env.STORAGE_DATABASE || "cdms",
 		"collection": process.env.STORAGE_COLLECTION || "data"
 	},
+
+
+	task: {
+		"Water Level Monitoring": {
+			data:{
+				startsAt:"2021.01.01",
+				measurement_type:"experimental"
+			},
+
+			script:{
+				path: "./src/python/",
+				file: "water_detection.py"
+			}
+
+		}	
+	},
+
+	DEFAULT_TASK: "Water Level Monitoring", 	
+
 
 	python: {
 		mode: 'text',

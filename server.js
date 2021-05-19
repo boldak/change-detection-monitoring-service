@@ -1,11 +1,22 @@
 const bodyParser = require('body-parser')
 const express = require('express')
+const CORS = require("cors")
 
 const config  = require('./config')
 
 let logger = require("./src/javascript/logger")
 
 const app = express();
+
+app.use(express.static(config.service.public));
+
+app.use(CORS())
+
+app.use(bodyParser.json({
+	limit: '50mb'
+}));
+
+
 // app.use(express.json());
 app.use(bodyParser.text());
 app.use(bodyParser.urlencoded({ extended: false }));

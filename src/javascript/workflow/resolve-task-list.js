@@ -18,7 +18,7 @@ let createTask = task => () => new Promise((resolve,reject) => {
     
     task = _.extend( task, {_id:v4()} )
     logger.print(`Starts task for ${task.properties.Name}`)
-    let pyproc = new PythonShell(task.properties.script, config.python);
+    let pyproc = new PythonShell(config.task[config.DEFAULT_TASK].script.file, config.python);
     
     pyproc.once("message", message => {
         let data = JSON.parse(message)
@@ -27,7 +27,7 @@ let createTask = task => () => new Promise((resolve,reject) => {
     })
 
     pyproc.once("close", () => {
-        logger.print(`${task.result.length} records saves`)
+        logger.print(`${task.result.length} records detected`)
         saveResults(task).then( res => {
             logger.print(`Task for ${task.properties.Name} is completed`)
             // console.log(`Task for ${JSON.stringify(task.result)} is completed`)

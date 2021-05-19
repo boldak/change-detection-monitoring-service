@@ -3,6 +3,7 @@ const moment = require("moment")
 
 const config  = require('../../../config')
 const mongo = require('mongodb').MongoClient
+let logger = require("../logger")
 
 const Promise = require("bluebird")
 
@@ -16,7 +17,7 @@ let prepare = (data, task) => {
     }
 
     savedObject.properties.measurement_date = moment(savedObject.properties.measurement_date,"DD/MM/YYYY").format("YYYY.MM.DD")
-    savedObject.properties.measurement_type = "experimental"
+    savedObject.properties.measurement_type = config.task[config.DEFAULT_TASK].data.measurement_type
 
     return savedObject
 }
@@ -48,7 +49,7 @@ module.exports = task => new Promise( ( resolve, reject ) => {
                         {upsert: true}
                     )
                     .then( r => {
-                        result.push(r.result.n)
+                        result.push(r.result.nModified)
                         return result
                     })
                     .catch( e => {
@@ -58,8 +59,13 @@ module.exports = task => new Promise( ( resolve, reject ) => {
                 []
             )
             .then( res => {
+                let temp = _.flattenDeep(res)
+                let updated = temp.reduce((s,d) => s+d, 0)
+                let created = temp.length - updated
+                logger.print(`${updated} records updated, ${created} records created`)
+                 
                 if(client) client.close()
-                resolve(_.flattenDeep(res))
+                resolve(temp)
             })
             .catch( e => {
                 if(client) client.close()

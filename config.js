@@ -22,7 +22,19 @@ module.exports = {
 		"Water Level Monitoring": {
 			data:{
 				startsAt:"2021.01.01",
-				measurement_type:"experimental"
+				measurement_type:"experimental",
+				exclude_properties:["OBJECTID","Id"],
+				actuality_options:{
+					group:"Name",
+					date:"measurement_date",
+					field:"Actual"
+				}	
+			},
+
+			access:{
+				CLIENT_ID: process.env.SENTINELHUB_CLIENT_ID || "a44f965e-9afd-4ff8-b6b2-32536c40dcfb", 
+				CLIENT_SECRET: process.env.SENTINELHUB_CLIENT_SECRET || "yh.d1_P@.)a|[@@|JWAx>kN~GX#SN5GgO^<E|)MH", 
+				instance_id: process.env.SENTINELHUB_INSTANCE_ID || "8dcd8d01-01fb-419a-adbe-cd7b1b838b68"
 			},
 
 			script:{

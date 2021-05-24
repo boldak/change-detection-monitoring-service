@@ -35,7 +35,7 @@ if __name__=='__main__':
         dam_bbox = get_bbox(dam_nominal)
 
         # Use login credentials from Sentinel Hub
-        config = login_config()
+        config = login_config(input_json["access_settings"]["CLIENT_ID"], input_json["access_settings"]["CLIENT_SECRET"], input_json["access_settings"]["instance_id"])
 
         # Create an EOPatch and add all EO features (satellite imagery data)
         download_task = SentinelHubInputTask(data_collection=DataCollection.SENTINEL2_L1C, 
@@ -80,13 +80,22 @@ if __name__=='__main__':
         output = []
 
         for i in range(len(eopatch.scalar['WATER_LEVEL'])):
-            numpyData = {"measurement_date": eopatch.timestamp[i].strftime('%d/%m/%Y'), "bbox": eopatch.bbox.geometry.bounds, "crs": eopatch.bbox.crs.epsg, "water_level": eopatch.scalar['WATER_LEVEL'][i,0], "cloud_coverage": eopatch.scalar['COVERAGE'][i,0], "measurement_type": "observed"}
+            numpyData = { "measurement_date": eopatch.timestamp[i].strftime('%d/%m/%Y'), 
+                          "bbox": eopatch.bbox.geometry.bounds, 
+                          "crs": eopatch.bbox.crs.epsg, 
+                          "water_level": eopatch.scalar['WATER_LEVEL'][i,0], 
+                          "cloud_coverage": eopatch.scalar['COVERAGE'][i,0], 
+                          "Area_fact": input_json["properties"]["Area_nom"]*eopatch.scalar['WATER_LEVEL'][i,0],
+                          "Size_fact": input_json["properties"]["Area_nom"]*eopatch.scalar['WATER_LEVEL'][i,0]*input_json["properties"]["depth"],
+                          "measurement_type": "observed"
+              }
+            
             obJect = {"type": "Feature", "properties": numpyData, "geometry": get_observed_shape(eopatch, dam_nominal,i)}
             output.append(obJect)
 
         ## processing here
 
-        # output = {"startDate": input_json["startDate"],"endDate": input_json["endDate"],}
+        # output = {"startDate": input_json["startDate"],"endDate": input_json["endDate"], "cid":input_json["access_settings"]["CLIENT_ID"], "cs": input_json["access_settings"]["CLIENT_SECRET"], "iid": input_json["access_settings"]["instance_id"]}
         output_json = json.dumps(output, ensure_ascii=False).encode('utf-8')
         sys.stdout.buffer.write(output_json)
         print()

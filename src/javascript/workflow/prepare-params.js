@@ -45,7 +45,7 @@ module.exports =  taskList  => new Promise( (resolve, reject) => {
                                                         ? minDate 
                                                         : moment(new Date()).subtract(1, 'months') 
                                         
-                                        dateRange = [
+                                        let dateRange = [
                                             minDate.format("YYYY.MM.DD"),
                                             maxDate.format("YYYY.MM.DD")
                                         ]
@@ -53,6 +53,8 @@ module.exports =  taskList  => new Promise( (resolve, reject) => {
                                         return _.extend( task, {
                                             params: {
                                                 Id:task.properties.Id,
+                                                access_settings: config.task[task.properties.task].access,
+                                                properties: task.properties,
                                                 geometry: task.geometry,
                                                 dateRange,
                                                 startDate: moment(minDate,"YYYY.MM.DD").format("DD/MM/YYYY"),

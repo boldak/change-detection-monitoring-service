@@ -85,6 +85,27 @@ let prepareDbRequest = query => {
 }
 
 
+let processActualRecords = data => {
+
+	if( !_.head(data)) return data
+
+	let options = config.task[_.head(data).properties.task].data.actuality_options	
+	
+	let lastDate = _.groupBy(data, d => d.properties[options.group])
+	_.keys(lastDate).forEach( key => {
+		lastDate[key] = _.orderBy(lastDate[key].map( d => d.properties[options.date]), d => d ,"desc").filter( d => d)[0]
+	})
+
+	data.forEach( row => {
+		if(row.properties[options.date] && lastDate[row.properties[options.group]] && row.properties[options.date] == lastDate[row.properties[options.group]]){
+			row.properties[options.field] = 1
+		}
+	})
+
+	return data
+}
+
+
 let executeRequest = query => new Promise ( (resolve, reject) => {
 	let client
 	mongo.connect(config.storage.url, {
@@ -98,6 +119,14 @@ let executeRequest = query => new Promise ( (resolve, reject) => {
 	        
 	        collection.aggregate(prepareDbRequest(query)).toArray()
                         .then(res => {
+                        	res = processActualRecords(res)
+                        	
+                        	res.forEach( row => {
+                        		config.task[row.properties.task].data.exclude_properties.forEach(p => {
+                        			delete row.properties[p]
+                        		})
+                        	})
+
                             resolve({
 							  "type": "FeatureCollection",
 							  "name": "reservoir_att",

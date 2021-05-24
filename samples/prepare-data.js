@@ -8,6 +8,8 @@ data = data.map( item => {
 	
 	item.properties = 
 	_.extend({}, item.properties, {
+		Area_fact: item.properties.Area_nom,
+		Size_fact: item.properties.Area_nom * item.properties.depth,
 		measurement_type: "nominal",
 		script: "water_detection.py",
 		task: "Water Level Monitoring"

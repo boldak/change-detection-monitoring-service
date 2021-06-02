@@ -18,7 +18,7 @@ let prepare = (data, task) => {
 
     savedObject.properties.measurement_date = moment(savedObject.properties.measurement_date,"DD/MM/YYYY").format("YYYY.MM.DD")
     savedObject.properties.measurement_type = config.task[config.DEFAULT_TASK].data.measurement_type
-
+    logger.print(`Save record ${JSON.stringify(savedObject.properties)}`)
     return savedObject
 }
 
@@ -40,11 +40,16 @@ module.exports = task => new Promise( ( resolve, reject ) => {
                 dataArray,
                 (result, data) => {
                     let savedObject = prepare(data, task)
-                    return collection.replaceOne(
-                        {
+                    let filter = {
                             "properties.measurement_date": savedObject.properties.measurement_date,
-                            "properties.Id": savedObject.properties.Id,
-                        }, 
+                        }
+
+                    let identity = config.task[config.DEFAULT_TASK].data.object_identity    
+                    filter[`properties.${identity}`] = savedObject.properties[identity]    
+
+                    logger.print(`FILTER ${JSON.stringify(filter, null," ")}`)
+                    return collection.replaceOne(
+                        filter, 
                         savedObject, 
                         {upsert: true}
                     )

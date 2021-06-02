@@ -1,5 +1,5 @@
 
-let data = require("./reservoir_att_NEW.json").features
+let data = require("./reserves_Crimea_nominal_v.json").features
 
 let _ = require("lodash")
 

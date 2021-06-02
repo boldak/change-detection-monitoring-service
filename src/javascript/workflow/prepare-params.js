@@ -36,7 +36,7 @@ module.exports =  taskList  => new Promise( (resolve, reject) => {
                                         // logger.print(JSON.stringify(res[0]))
                                         let maxDate = moment(new Date())
                                         let minDate = ( res[0] ) 
-                                                        ? res[0].properties.measurement_date || moment(new Date(START_DATE)) 
+                                                        ? moment(res[0].properties.measurement_date,"YYYY.MM.DD") || moment(new Date(START_DATE)) 
                                                         : moment(new Date(START_DATE)) 
 
                                         // logger.print(minDate)       
@@ -49,7 +49,7 @@ module.exports =  taskList  => new Promise( (resolve, reject) => {
                                             minDate.format("YYYY.MM.DD"),
                                             maxDate.format("YYYY.MM.DD")
                                         ]
-                                        logger.print(`Task "${config.DEFAULT_TASK} for ${task.properties.Name}" time range ${JSON.stringify(dateRange)}`)
+                                        logger.print(`Task "${config.DEFAULT_TASK} for ${task.properties.Name}" time range [${moment(minDate,"YYYY.MM.DD").format("MM/DD/YYYY")}, ${moment(maxDate,"YYYY.MM.DD").format("MM/DD/YYYY")}]`)
                                         return _.extend( task, {
                                             params: {
                                                 Id:task.properties.Id,
@@ -57,8 +57,8 @@ module.exports =  taskList  => new Promise( (resolve, reject) => {
                                                 properties: task.properties,
                                                 geometry: task.geometry,
                                                 dateRange,
-                                                startDate: moment(minDate,"YYYY.MM.DD").format("DD/MM/YYYY"),
-                                                endDate: moment(maxDate,"YYYY.MM.DD").format("DD/MM/YYYY"),
+                                                startDate: moment(minDate,"YYYY.MM.DD").format("MM/DD/YYYY"),
+                                                endDate: moment(maxDate,"YYYY.MM.DD").format("MM/DD/YYYY"),
                                             }
                                         })
                                     })    

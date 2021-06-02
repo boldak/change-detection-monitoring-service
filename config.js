@@ -21,9 +21,10 @@ module.exports = {
 	task: {
 		"Water Level Monitoring": {
 			data:{
-				startsAt:"2021.01.01",
+				startsAt:"2020.05.01",
 				measurement_type:"experimental",
-				exclude_properties:["OBJECTID","Id"],
+				exclude_properties:["OBJECTID","Id","ObjectId"],
+				object_identity:"Name",
 				actuality_options:{
 					group:"Name",
 					date:"measurement_date",

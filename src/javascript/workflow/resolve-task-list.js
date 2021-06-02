@@ -26,8 +26,20 @@ let createTask = task => () => new Promise((resolve,reject) => {
         task.result = data
         pyproc.end(() => { pyproc.kill()})
     })
+    
+    pyproc.once("error", message => {
+        reject(message)
+        pyproc.end(() => { pyproc.kill()})
+    })
+
 
     pyproc.once("close", () => {
+        if(!task.result) {
+            logger.print(`No data detected`)
+            resolve()
+            return
+        }
+        
         logger.print(`${task.result.length} records detected`)
         saveResults(task).then( res => {
             logger.print(`Task for ${task.properties.Name} is completed`)

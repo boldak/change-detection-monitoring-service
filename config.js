@@ -12,7 +12,7 @@ module.exports = {
 
 	storage:{
 		"provider": process.env.STORAGE_PROVIDER || "mongodb",
-		"url": process.env.STORAGE_URL || "mongodb+srv://jace:jace@cluster0.lswzn.mongodb.net/test",
+		"url": process.env.STORAGE_URL || "mongodb+srv://jace:jace@cluster0.lswzn.mongodb.net/cdms?retryWrites=true&w=majority",
 		"database": process.env.STORAGE_DATABASE || "cdms",
 		"collection": process.env.STORAGE_COLLECTION || "data"
 	},

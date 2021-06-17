@@ -12,15 +12,16 @@ const jsoncsv = require('json-csv')
 const logger = require("./logger")
 
 let parseQuery = query => {
-	_.keys(query).forEach( key => {
+	let res = _.extend({}, query)
+	_.keys(res).forEach( key => {
 		try {
-			query[key] = JSON.parse(query[key])	
+			res[key] = JSON.parse(res[key])
 		} catch (e) {
-			delete query[key]
+			delete res[key]
 		}
 		
 	})
-	return query
+	return res
 }
 	
 const excludeFromQuery = ["properties", "excludeGeometry", "download"]
@@ -76,6 +77,10 @@ let prepareDbRequest = query => {
 		})
 	}
 
+	if(!projector.properties){
+		projector["properties.task"] = projector["properties.task"] || 1
+	}
+
 	res.push({
 		$project: projector
 	})
@@ -117,9 +122,13 @@ let executeRequest = query => new Promise ( (resolve, reject) => {
 	    	let db = client.db(config.storage.database)
 	        let collection = db.collection(config.storage.collection)
 	        
+	        // console.log(query, parseQuery(query), prepareDbRequest(query))
+
 	        collection.aggregate(prepareDbRequest(query)).toArray()
                         .then(res => {
                         	res = processActualRecords(res)
+                        	
+                        	// console.log(res)
                         	
                         	res.forEach( row => {
                         		config.task[row.properties.task].data.exclude_properties.forEach(p => {
@@ -128,6 +137,8 @@ let executeRequest = query => new Promise ( (resolve, reject) => {
                         	})
 
                             resolve({
+                            	// "query":parseQuery(query),
+                            	// "request":prepareDbRequest(query),	
 							  "type": "FeatureCollection",
 							  "name": "reservoir_att",
 							  "crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
@@ -191,6 +202,13 @@ let convertToCsv = json => {
 
 
 module.exports = [
+	{
+		method: "get",
+		path: "/api/json",
+		handler: (req, res, next) => {
+			next()
+		}	
+	},
 	
 	{
 		method: "get",

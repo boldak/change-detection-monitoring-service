@@ -7,10 +7,17 @@ const config  = require('./config')
 let logger = require("./src/javascript/logger")
 
 const app = express();
+app.use(CORS())
+
+app.all("/*",  (req, res, next) => {  
+    req.fullUrl = req.protocol + '://' + req.hostname + ":"+ config.service.port+req.originalUrl
+    res.header('Access-Control-Allow-Origin', '*');
+    next()
+})
 
 app.use(express.static(config.service.public));
 
-app.use(CORS())
+
 
 app.use(bodyParser.json({
 	limit: '50mb'

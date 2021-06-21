@@ -56,7 +56,7 @@ if __name__=='__main__':
         add_valid_mask = AddValidDataMaskTask(predicate=calculate_valid_data_mask)
         add_coverage = AddValidDataCoverage()
 
-        cloud_coverage_threshold = 0.05
+        cloud_coverage_threshold = 1.0 
         remove_cloudy_scenes = SimpleFilterTask((FeatureType.MASK, 'VALID_DATA'), ValidDataCoveragePredicate(cloud_coverage_threshold))
 
         water_detection = WaterDetector()

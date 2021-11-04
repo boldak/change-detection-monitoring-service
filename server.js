@@ -34,6 +34,6 @@ require("./src/javascript/routes").forEach( route => {
 })
 
 app.listen(config.service.port, () => {
-  logger.print(`Changes Detection Monitoring Service starts on port ${config.service.port} in ${config.service.mode} mode.`)	
-  console.log(`Changes Detection Monitoring Service starts on port ${config.service.port} in ${config.service.mode} mode.`);
+  logger.print(`!!! Changes Detection Monitoring Service starts on port ${config.service.port} in ${config.service.mode} mode.`)	
+  console.log(`!!! Changes Detection Monitoring Service starts on port ${config.service.port} in ${config.service.mode} mode.`);
 });

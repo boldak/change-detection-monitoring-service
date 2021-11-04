@@ -113,6 +113,7 @@ let processActualRecords = data => {
 
 let executeRequest = query => new Promise ( (resolve, reject) => {
 	let client
+	// console.log("process ", config.storage.url)
 	mongo.connect(config.storage.url, {
                     useNewUrlParser: true,
                     useUnifiedTopology: true

@@ -3,18 +3,15 @@ const path = require("path")
 module.exports = {
 
 	service:{
-		lang: process.env.NER_LANG || "en",
 		mode: process.env.NODE_ENV || "development",
-		port: process.env.PORT || 3001,
-		host: process.env.HOST || "localhost",
+		port: process.env.PORT || 3001,  //TODO
+		host: process.env.HOST || "localhost", //TODO
 		public:"./.public"
 	},
 
 	storage:{
 		"provider": process.env.STORAGE_PROVIDER || "mongodb",
-		// "url": process.env.STORAGE_URL || "mongodb+srv://jace:jace@cluster0.lswzn.mongodb.net/cdms?retryWrites=true&w=majority",
-		"url": process.env.STORAGE_URL || "	mongodb+srv://jace:jace@cdms.jm8vq.mongodb.net/myFirstDatabase?retryWrites=true&w=majority",
-	
+		"url": process.env.STORAGE_URL || "mongodb+srv://jace:jace@cluster0.lswzn.mongodb.net/cdms?retryWrites=true&w=majority", //TODO
 		"database": process.env.STORAGE_DATABASE || "cdms",
 		"collection": process.env.STORAGE_COLLECTION || "data"
 	},
@@ -34,11 +31,21 @@ module.exports = {
 				}	
 			},
 
+
+// OAuth clients mapw ID: 8f1f3407-ab2a-4a08-8130-aba44fce3a76 
+// CLIENT_SECRET: O#^tqTpnzPBf~8BA]t1JoJb_7*/h<[p3*CZrZ1@: 
+// User ID: 57a81c98-a767-4aa0-9080-05b468b78a94 
+// Account ID: 07164548-e835-4192-b48c-d6ca598f25a0
+// Instance_id: 1187721c-e72d-4f13-a93f-383f63a291e4 
+
+
 			access:{
-				CLIENT_ID: process.env.SENTINELHUB_CLIENT_ID || "a44f965e-9afd-4ff8-b6b2-32536c40dcfb", 
-				CLIENT_SECRET: process.env.SENTINELHUB_CLIENT_SECRET || "yh.d1_P@.)a|[@@|JWAx>kN~GX#SN5GgO^<E|)MH", 
-				instance_id: process.env.SENTINELHUB_INSTANCE_ID || "8dcd8d01-01fb-419a-adbe-cd7b1b838b68"
+				CLIENT_ID: process.env.SENTINELHUB_CLIENT_ID || "8f1f3407-ab2a-4a08-8130-aba44fce3a76", 
+				CLIENT_SECRET: process.env.SENTINELHUB_CLIENT_SECRET || "O#^tqTpnzPBf~8BA]t1JoJb_7*/h<[p3*CZrZ1@:",
+				instance_id: process.env.SENTINELHUB_INSTANCE_ID || "1187721c-e72d-4f13-a93f-383f63a291e4"
 			},
+
+
 
 			script:{
 				path: "./src/python/",

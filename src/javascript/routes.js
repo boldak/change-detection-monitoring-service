@@ -235,7 +235,8 @@ module.exports = [
 		path: "/api/update",
 		handler: (req, res) => {
 			require("./resolver").run()
-			res.send(`Monitoring Data Update starts at ${moment(new Date()).format("YYYY.MM.DD hh:mm:ss")}`)
+			res.redirect("/log-listener.html")
+			// res.send(`Monitoring Data Update starts at ${moment(new Date()).format("YYYY.MM.DD hh:mm:ss")}`)
 		}
 	},
 
@@ -262,9 +263,21 @@ module.exports = [
 		method: "get",
 		path: "/api/log",
 		handler: (req, res) => {
-			res.send(logger.get())
+			res.redirect("/log-listener.html")
+		}
+	},
+
+	{
+		method: "get",
+		path: "/api/view-log",
+		handler: (req, res) => {
+			let sse = res.sse()
+			logger.on( messages => {
+				sse.send(messages.join("/n")+"\n")
+			})
 		}
 	}
 
 	
 ]
+

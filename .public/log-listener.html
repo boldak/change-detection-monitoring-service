@@ -1,0 +1,85 @@
+<html><head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+   <link rel="stylesheet" href="./vuetify.min.css">
+  
+</head>
+
+	<body>
+
+		<div class="app">
+			<div class="v-application v-application--is-ltr theme--light">
+				<div class="v-application--wrap">
+					<div class="d-flex align-center" style="
+    background: #1a237e;
+    color: white;
+">
+						<div class="headline ma-2">Change Detection Monitoring Service</div>
+						<div class="spacer"></div>
+						<div class="ma-2 text-right">
+							<a href="http://wdc.org.ua/" target="_blank" style="font-size: xx-small;color: white;text-decoration: none;">WORLD DATA CENTER FOR GEOINFORMATICS AND SUSTAINABLE DEVELOPMENT</a>
+						</div>	
+					</div>
+
+					
+					<div class="title ma-2"> Service log</div>
+
+					<pre id="log" 
+						style="height: 50em;
+					    margin: 50px;
+					    overflow: scroll;
+					    border: 1px solid #aeaeae;
+					    padding: 0 0 0 10px;
+					    font-size: small;"
+					>
+
+					</pre>	
+
+
+
+					
+				</div>	<!-- application wrapper-->
+			</div>	
+		</div>	
+		
+	<script>
+
+		console.log("start")
+		let log = document.getElementById("log");
+		
+		console.log(log)
+		
+		let eventSource = new EventSource("/api/view-log");
+
+		eventSource.onopen = function(e) {
+			console.log("OPEN");
+		};
+
+		const state = {
+			0: "RECONNECT...",
+			2: "CLOSE"
+		};
+
+		eventSource.onerror = function(e) {
+			let s = state[this.readyState] || "ERROR";
+			console.log(s);
+		};
+
+		eventSource.onmessage = message => {
+			console.log("ping", message.data.replace(/\/n/g,"\n"));
+		  	log.innerHTML += message.data.replace(/\/n/g,"\n")+"\n";
+		  	log.scrollTo({top:log.scrollHeight});	
+		};
+
+
+	</script>	
+
+
+
+
+
+
+</body>
+</html>

@@ -67,7 +67,10 @@ module.exports = taskList => new Promise( ( resolve, reject ) => {
         res.push(data)
     });
     
-    queue.on("reject", error => console.error(error));
+    queue.on("reject", error => {
+        // console.error(error)
+        logger.print(error.traceback)
+    });
 
     taskList.forEach( task => {
         queue.enqueue(createTask(task))

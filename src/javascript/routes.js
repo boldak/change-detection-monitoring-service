@@ -273,7 +273,9 @@ module.exports = [
 		handler: (req, res) => {
 			let sse = res.sse()
 			logger.on( messages => {
-				sse.send(messages.join("/n")+"\n")
+				messages.forEach( m => {
+					sse.send(m)
+				})
 			})
 		}
 	}

@@ -13,7 +13,7 @@ module.exports = {
 		"provider": process.env.STORAGE_PROVIDER || "mongodb",
 		"url": process.env.STORAGE_URL || "mongodb+srv://jace:jace@cluster0.lswzn.mongodb.net/cdms?retryWrites=true&w=majority", //TODO
 		"database": process.env.STORAGE_DATABASE || "cdms",
-		"collection": process.env.STORAGE_COLLECTION || "data"
+		"collection": process.env.STORAGE_COLLECTION || "tasks"//"data"
 	},
 
 

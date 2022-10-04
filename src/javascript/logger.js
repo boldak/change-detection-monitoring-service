@@ -16,9 +16,9 @@ let logger = {
 	},
 
 	print: message => {
-
+		message = message || ""
 		console.log(`[ ${moment(new Date()).format("YYYY.MM.DD HH:mm:ss")} ]: ${message}`)
-		console.log("PRINT", message.split("\n").length)
+		// console.log("PRINT", message.split("\n").length)
 		message.split("\n").forEach( (m, index) => {
 			messages.push((index == 0) ? `[ ${moment(new Date()).format("YYYY.MM.DD HH:mm:ss")} ]: ${m}` : `\t${m}`)
 		})
